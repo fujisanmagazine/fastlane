@@ -1266,7 +1266,9 @@ module Spaceship
 
     # Submit the In-App-Purchase for review
     def submit_iap!(app_id: nil, purchase_id: nil)
-      r = request(:post, "ra/apps/#{app_id}/iaps/#{purchase_id}/submission")
+      r = request(:post, "ra/apps/#{app_id}/iaps/#{purchase_id}/submission") do |req|
+        req.headers['x-csrf-itc'] = 'itc'
+      end
       handle_itc_response(r)
     end
 
